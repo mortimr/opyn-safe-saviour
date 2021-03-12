@@ -47,7 +47,7 @@ contract OpynV2ControllerMock is OpynV2ControllerLike {
             _actions.length == 1 && _actions[0].actionType == ActionType.Redeem,
             'mock made for single type of calls'
         );
-        require(redeemable[_actions[0].asset] == 1, "not redeemable");
+        require(redeemable[_actions[0].asset] == 1, 'not redeemable');
         OpynV2OTokenLike otoken = OpynV2OTokenLike(_actions[0].asset);
 
         (address collateralAsset, , , , , ) = otoken.getOtokenDetails();

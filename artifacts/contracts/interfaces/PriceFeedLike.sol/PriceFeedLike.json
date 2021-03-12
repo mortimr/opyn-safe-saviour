@@ -4,19 +4,6 @@
   "sourceName": "contracts/interfaces/PriceFeedLike.sol",
   "abi": [
     {
-      "inputs": [
-        {
-          "internalType": "bytes32",
-          "name": "c__0x73d2ec59",
-          "type": "bytes32"
-        }
-      ],
-      "name": "c_0x73d2ec59",
-      "outputs": [],
-      "stateMutability": "pure",
-      "type": "function"
-    },
-    {
       "inputs": [],
       "name": "getResultWithValidity",
       "outputs": [

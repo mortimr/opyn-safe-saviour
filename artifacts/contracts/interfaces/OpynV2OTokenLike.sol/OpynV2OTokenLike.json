@@ -4,19 +4,6 @@
   "sourceName": "contracts/interfaces/OpynV2OTokenLike.sol",
   "abi": [
     {
-      "inputs": [
-        {
-          "internalType": "bytes32",
-          "name": "c__0x4b0fa41e",
-          "type": "bytes32"
-        }
-      ],
-      "name": "c_0x4b0fa41e",
-      "outputs": [],
-      "stateMutability": "pure",
-      "type": "function"
-    },
-    {
       "inputs": [],
       "name": "getOtokenDetails",
       "outputs": [

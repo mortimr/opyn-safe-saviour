@@ -185,32 +185,6 @@
     {
       "inputs": [
         {
-          "internalType": "bytes32",
-          "name": "c__0x2076af66",
-          "type": "bytes32"
-        }
-      ],
-      "name": "c_0x2076af66",
-      "outputs": [],
-      "stateMutability": "pure",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "bytes32",
-          "name": "c__0x5ff8a84a",
-          "type": "bytes32"
-        }
-      ],
-      "name": "c_0x5ff8a84a",
-      "outputs": [],
-      "stateMutability": "pure",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
           "internalType": "address",
           "name": "",
           "type": "address"

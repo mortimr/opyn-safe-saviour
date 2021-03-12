@@ -151,7 +151,7 @@ contract OpynSafeSaviourOperator is SafeMath {
 
         uint256 payoutPerToken = opynV2Controller.getPayout(_otoken, 1);
 
-        require(payoutPerToken > 0, "OpynSafeSaviour/no-collateral-to-redeem");
+        require(payoutPerToken > 0, 'OpynSafeSaviour/no-collateral-to-redeem');
 
         uint256 amountToApprove = div(oTokenCollateralAmountRequired, payoutPerToken);
 

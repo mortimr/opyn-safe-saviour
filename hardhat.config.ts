@@ -8,6 +8,9 @@ import '@nomiclabs/hardhat-solhint';
 import 'hardhat-prettier';
 import 'hardhat-docgen';
 
+import { HardhatUserConfig } from 'hardhat/config';
+
+
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
@@ -26,4 +29,4 @@ module.exports = {
     clear: true,
     runOnCompile: true,
   }
-};
+} as HardhatUserConfig;

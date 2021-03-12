@@ -1,0 +1,235 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "SafeEngineMock",
+  "sourceName": "contracts/test-utils/SafeEngineMock.sol",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "_collateralType",
+          "type": "bytes32"
+        }
+      ],
+      "name": "collateralTypes",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "debtAmount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "accumulatedRate",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "safetyPrice",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "debtCeiling",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "debtFloor",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "liquidationPrice",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "collateralType",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "address",
+          "name": "safe",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "collateralSource",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "debtDestination",
+          "type": "address"
+        },
+        {
+          "internalType": "int256",
+          "name": "deltaCollateral",
+          "type": "int256"
+        },
+        {
+          "internalType": "int256",
+          "name": "deltaDebt",
+          "type": "int256"
+        }
+      ],
+      "name": "modifySAFECollateralization",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        }
+      ],
+      "name": "safeRights",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "_collateralType",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "address",
+          "name": "_safeId",
+          "type": "address"
+        }
+      ],
+      "name": "safes",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "lockedCollateral",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "generatedDebt",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "_collateralType",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_debtAmount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_accumulatedRate",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_safetyPrice",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_debtCeiling",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_debtFloor",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_liquidationPrice",
+          "type": "uint256"
+        }
+      ],
+      "name": "setCollateralType",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "_collateralType",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "address",
+          "name": "_safeId",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_lockedCollateral",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_generatedDebt",
+          "type": "uint256"
+        }
+      ],
+      "name": "setSafe",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        }
+      ],
+      "name": "toggleSafeRights",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x608060405234801561001057600080fd5b50610427806100206000396000f3fe608060405234801561001057600080fd5b506004361061007d5760003560e01c806399bec3151161005b57806399bec31514610141578063a813545e14610189578063af10f94a146101b7578063d07900bb146101f85761007d565b806306eb54df1461008257806319f8cf9e146100c25780633d422504146100fc575b600080fd5b6100b06004803603604081101561009857600080fd5b506001600160a01b0381358116916020013516610248565b60408051918252519081900360200190f35b6100fa600480360360808110156100d857600080fd5b508035906001600160a01b036020820135169060408101359060600135610273565b005b6101286004803603604081101561011257600080fd5b50803590602001356001600160a01b03166102b2565b6040805192835260208301919091528051918290030190f35b6100fa600480360360c081101561015757600080fd5b508035906001600160a01b03602082013581169160408101358216916060820135169060808101359060a001356102f2565b6100fa6004803603604081101561019f57600080fd5b506001600160a01b03813581169160200135166102fa565b6100fa600480360360e08110156101cd57600080fd5b5080359060208101359060408101359060608101359060808101359060a08101359060c0013561032d565b6102156004803603602081101561020e57600080fd5b5035610390565b604080519687526020870195909552858501939093526060850191909152608084015260a0830152519081900360c00190f35b6001600160a01b03918216600090815260026020908152604080832093909416825291909152205490565b6040805180820182529283526020808401928352600095865260018082528287206001600160a01b039096168752949052909320905181559151910155565b60008281526001602081815260408084206001600160a01b0386168552825292839020835180850190945280548085529201549201829052909250929050565b505050505050565b6001600160a01b039182166000908152600260209081526040808320939094168252919091522080546001908101169055565b6040805160c0810182529687526020808801968752878201958652606088019485526080880193845260a0880192835260009889528890529096209451855592516001850155905160028401555160038301555160048201559051600590910155565b60009081526020818152604091829020825160c0810184528154808252600183015493820184905260028301549482018590526003830154606083015260048301546080830181905260059093015460a0909201829052949293928592919056fea2646970667358221220bc61e3213a1a0d09abdeab3e568fd7bc08938d34809748e4a02ca2aee8377f9864736f6c63430007060033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b506004361061007d5760003560e01c806399bec3151161005b57806399bec31514610141578063a813545e14610189578063af10f94a146101b7578063d07900bb146101f85761007d565b806306eb54df1461008257806319f8cf9e146100c25780633d422504146100fc575b600080fd5b6100b06004803603604081101561009857600080fd5b506001600160a01b0381358116916020013516610248565b60408051918252519081900360200190f35b6100fa600480360360808110156100d857600080fd5b508035906001600160a01b036020820135169060408101359060600135610273565b005b6101286004803603604081101561011257600080fd5b50803590602001356001600160a01b03166102b2565b6040805192835260208301919091528051918290030190f35b6100fa600480360360c081101561015757600080fd5b508035906001600160a01b03602082013581169160408101358216916060820135169060808101359060a001356102f2565b6100fa6004803603604081101561019f57600080fd5b506001600160a01b03813581169160200135166102fa565b6100fa600480360360e08110156101cd57600080fd5b5080359060208101359060408101359060608101359060808101359060a08101359060c0013561032d565b6102156004803603602081101561020e57600080fd5b5035610390565b604080519687526020870195909552858501939093526060850191909152608084015260a0830152519081900360c00190f35b6001600160a01b03918216600090815260026020908152604080832093909416825291909152205490565b6040805180820182529283526020808401928352600095865260018082528287206001600160a01b039096168752949052909320905181559151910155565b60008281526001602081815260408084206001600160a01b0386168552825292839020835180850190945280548085529201549201829052909250929050565b505050505050565b6001600160a01b039182166000908152600260209081526040808320939094168252919091522080546001908101169055565b6040805160c0810182529687526020808801968752878201958652606088019485526080880193845260a0880192835260009889528890529096209451855592516001850155905160028401555160038301555160048201559051600590910155565b60009081526020818152604091829020825160c0810184528154808252600183015493820184905260028301549482018590526003830154606083015260048301546080830181905260059093015460a0909201829052949293928592919056fea2646970667358221220bc61e3213a1a0d09abdeab3e568fd7bc08938d34809748e4a02ca2aee8377f9864736f6c63430007060033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

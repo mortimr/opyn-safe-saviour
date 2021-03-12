@@ -4,8 +4,9 @@ const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 const expect = chai.expect;
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { ethers } = require('hardhat');
 import { Signer, Contract, ContractFactory, BigNumber } from 'ethers';
-import { ethers } from 'hardhat';
 
 interface Context {
   signers: Signer[]

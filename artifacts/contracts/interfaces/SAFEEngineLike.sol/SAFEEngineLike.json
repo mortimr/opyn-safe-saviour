@@ -7,19 +7,6 @@
       "inputs": [
         {
           "internalType": "bytes32",
-          "name": "c__0x23ab28d9",
-          "type": "bytes32"
-        }
-      ],
-      "name": "c_0x23ab28d9",
-      "outputs": [],
-      "stateMutability": "pure",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "bytes32",
           "name": "",
           "type": "bytes32"
         }

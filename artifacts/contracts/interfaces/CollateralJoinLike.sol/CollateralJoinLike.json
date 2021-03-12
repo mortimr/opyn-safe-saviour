@@ -4,19 +4,6 @@
   "sourceName": "contracts/interfaces/CollateralJoinLike.sol",
   "abi": [
     {
-      "inputs": [
-        {
-          "internalType": "bytes32",
-          "name": "c__0xd47fbafc",
-          "type": "bytes32"
-        }
-      ],
-      "name": "c_0xd47fbafc",
-      "outputs": [],
-      "stateMutability": "pure",
-      "type": "function"
-    },
-    {
       "inputs": [],
       "name": "collateral",
       "outputs": [

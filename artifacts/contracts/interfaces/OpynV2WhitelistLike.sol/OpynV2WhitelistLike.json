@@ -6,19 +6,6 @@
     {
       "inputs": [
         {
-          "internalType": "bytes32",
-          "name": "c__0x7e61d650",
-          "type": "bytes32"
-        }
-      ],
-      "name": "c_0x7e61d650",
-      "outputs": [],
-      "stateMutability": "pure",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
           "internalType": "address",
           "name": "_otoken",
           "type": "address"
