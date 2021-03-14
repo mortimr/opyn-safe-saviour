@@ -22,8 +22,6 @@ contract OpynSafeSaviourOperator is SafeMath {
     mapping(address => address) public oTokenSelection;
     // Entity whitelisting allowed saviours
     SAFESaviourRegistryLike public saviourRegistry;
-    // allowed oToken contracts
-    mapping(address => uint256) public oTokenWhitelist;
 
     // Events
     event ToggleOToken(address oToken, uint256 whitelistState);
@@ -121,19 +119,8 @@ contract OpynSafeSaviourOperator is SafeMath {
         ERC20Like(_safeCollateral).transfer(msg.sender, swappedSafeCollateral);
     }
 
-    function toggleOToken(address _otoken) external isSaviourRegistryAuthorized() {
-        require(opynV2Whitelist.isWhitelistedOtoken(_otoken) == true, 'OpynSafeSaviour/otoken-not-whitelisted');
-
-        (, , , , , bool isPut) = OpynV2OTokenLike(_otoken).getOtokenDetails();
-
-        require(isPut == true, 'OpynSafeSaviour/option-not-put');
-
-        if (oTokenWhitelist[_otoken] == 0) {
-            oTokenWhitelist[_otoken] = 1;
-        } else {
-            oTokenWhitelist[_otoken] = 0;
-        }
-        emit ToggleOToken(_otoken, oTokenWhitelist[_otoken]);
+    function oTokenWhitelist(address _otoken) external view returns (bool) {
+        return opynV2Whitelist.isWhitelistedOtoken(_otoken);
     }
 
     function getOTokenAmountToApprove(

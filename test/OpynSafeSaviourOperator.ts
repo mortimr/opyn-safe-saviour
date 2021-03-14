@@ -211,9 +211,9 @@ describe('OSSO - Opyn Safe Saviour Operator', function () {
 
   });
 
-  describe('toggleOToken', function () {
+  describe('oTokenWhitelist', function () {
 
-    it('should properly whitelist oToken for saviour usage', async function () {
+    it('should properly tell that oToken is whitelisted by Opyn whitelist', async function () {
 
       const Gold = await ctx.mockFactories.ERC20.deploy('Gold', 'GLD');
       const USD = await ctx.mockFactories.ERC20.deploy('United State Dollar', 'USD');
@@ -221,8 +221,6 @@ describe('OSSO - Opyn Safe Saviour Operator', function () {
       const inOneMonth = Math.floor(Date.now() / 1000) + 30 * 24 * 60 * 60;
 
       const isPut = true;
-
-      const owner = await ctx.signers[0].getAddress();
 
       const oToken = await ctx.mockFactories.OpynV2OToken.deploy(
         Gold.address,
@@ -235,18 +233,10 @@ describe('OSSO - Opyn Safe Saviour Operator', function () {
 
       await ctx.mocks.OpynV2Whitelist.functions.toggleWhitelist(oToken.address);
 
-      expect((await ctx.contracts.OpynSafeSaviourOperator.functions.oTokenWhitelist(oToken.address))[0].toString()).to.deep.equal('0');
-
-      await ctx.mocks.SaviourRegistry.functions.authorizeAccount(owner, 1);
-
-      await ctx.contracts.OpynSafeSaviourOperator.functions.toggleOToken(oToken.address)
-      await ctx.contracts.OpynSafeSaviourOperator.functions.toggleOToken(oToken.address)
-      await ctx.contracts.OpynSafeSaviourOperator.functions.toggleOToken(oToken.address)
-
-      expect((await ctx.contracts.OpynSafeSaviourOperator.functions.oTokenWhitelist(oToken.address))[0].toString()).to.deep.equal('1');
+      expect((await ctx.contracts.OpynSafeSaviourOperator.functions.oTokenWhitelist(oToken.address))[0]).to.equal(true);
     });
 
-    it('should for unauthorized account', async function () {
+    it('should properly tell that oToken is not whitelisted by Opyn whitelist', async function () {
 
       const Gold = await ctx.mockFactories.ERC20.deploy('Gold', 'GLD');
       const USD = await ctx.mockFactories.ERC20.deploy('United State Dollar', 'USD');
@@ -264,64 +254,7 @@ describe('OSSO - Opyn Safe Saviour Operator', function () {
         isPut
       );
 
-      await expect(ctx.contracts.OpynSafeSaviourOperator.functions.toggleOToken(oToken.address)).to.eventually.be.rejectedWith('OpynSafeSaviour/account-not-authorized');
-    });
-
-    it('should fail for not whitelisted otoken', async function () {
-
-      const Gold = await ctx.mockFactories.ERC20.deploy('Gold', 'GLD');
-      const USD = await ctx.mockFactories.ERC20.deploy('United State Dollar', 'USD');
-
-      const inOneMonth = Math.floor(Date.now() / 1000) + 30 * 24 * 60 * 60;
-
-      const isPut = true;
-
-      const owner = await ctx.signers[0].getAddress();
-
-      const oToken = await ctx.mockFactories.OpynV2OToken.deploy(
-        Gold.address,
-        Gold.address,
-        USD.address,
-        BigNumber.from(1200).mul('1000000000000000000'),
-        inOneMonth,
-        isPut
-      );
-
-      expect((await ctx.contracts.OpynSafeSaviourOperator.functions.oTokenWhitelist(oToken.address))[0].toString()).to.deep.equal('0');
-
-      await ctx.mocks.SaviourRegistry.functions.authorizeAccount(owner, 1);
-
-      await expect(ctx.contracts.OpynSafeSaviourOperator.functions.toggleOToken(oToken.address)).to.eventually.be.rejectedWith('OpynSafeSaviour/otoken-not-whitelisted');
-    });
-
-    it('should fail for not call option otoken', async function () {
-
-      const Gold = await ctx.mockFactories.ERC20.deploy('Gold', 'GLD');
-      const USD = await ctx.mockFactories.ERC20.deploy('United State Dollar', 'USD');
-
-      const inOneMonth = Math.floor(Date.now() / 1000) + 30 * 24 * 60 * 60;
-
-      const isPut = false;
-
-      const owner = await ctx.signers[0].getAddress();
-
-      const oToken = await ctx.mockFactories.OpynV2OToken.deploy(
-        Gold.address,
-        Gold.address,
-        USD.address,
-        BigNumber.from(1200).mul('1000000000000000000'),
-        inOneMonth,
-        isPut
-      );
-
-      await ctx.mocks.OpynV2Whitelist.functions.toggleWhitelist(oToken.address);
-
-      expect((await ctx.contracts.OpynSafeSaviourOperator.functions.oTokenWhitelist(oToken.address))[0].toString()).to.deep.equal('0');
-
-      await ctx.mocks.SaviourRegistry.functions.authorizeAccount(owner, 1);
-
-      await expect(ctx.contracts.OpynSafeSaviourOperator.functions.toggleOToken(oToken.address)).to.eventually.be.rejectedWith('OpynSafeSaviour/option-not-put');
-
+      expect((await ctx.contracts.OpynSafeSaviourOperator.functions.oTokenWhitelist(oToken.address))[0]).to.equal(false);
     });
 
   });

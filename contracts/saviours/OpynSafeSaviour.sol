@@ -75,9 +75,9 @@ contract OpynSafeSaviour is SafeMath, SafeSaviourLike {
         require(_saviourRegistry != address(0), 'OpynSafeSaviour/null-saviour-registry');
         require(_opynSafeSaviourOperator != address(0), 'OpynSafeSaviour/null-opyn-safe-saviour-operator');
         require(_keeperPayout > 0, 'OpynSafeSaviour/invalid-keeper-payout');
-        require(_defaultDesiredCollateralizationRatio > 0, 'OpynSafeSaviour/null-default-cratio');
-        require(_payoutToSAFESize > 1, 'OpynSafeSaviour/invalid-payout-to-safe-size');
         require(_minKeeperPayoutValue > 0, 'OpynSafeSaviour/invalid-min-payout-value');
+        require(_payoutToSAFESize > 1, 'OpynSafeSaviour/invalid-payout-to-safe-size');
+        require(_defaultDesiredCollateralizationRatio > 0, 'OpynSafeSaviour/null-default-cratio');
 
         keeperPayout = _keeperPayout;
         payoutToSAFESize = _payoutToSAFESize;
@@ -122,10 +122,10 @@ contract OpynSafeSaviour is SafeMath, SafeSaviourLike {
         uint256 _safeID,
         uint256 _oTokenAmount,
         address _oTokenType
-    ) external liquidationEngineApproved(address(this)) nonReentrant {
+    ) external liquidationEngineApproved(address(this)) controlsSAFE(msg.sender, _safeID) nonReentrant {
         require(_oTokenAmount > 0, 'OpynSafeSaviour/null-oToken-amount');
         // Check that oToken has been whitelisted by a SaviourRegistry authorized account
-        require(opynSafeSaviourOperator.oTokenWhitelist(_oTokenType) == 1, 'OpynSafeSaviour/forbidden-otoken');
+        require(opynSafeSaviourOperator.oTokenWhitelist(_oTokenType) == true, 'OpynSafeSaviour/forbidden-otoken');
 
         // Check that the SAFE exists inside GebSafeManager
         address safeHandler = safeManager.safes(_safeID);
@@ -145,7 +145,7 @@ contract OpynSafeSaviour is SafeMath, SafeSaviourLike {
         // Trigger transfer from oToken contract
         require(
             ERC20Like(_oTokenType).transferFrom(msg.sender, address(this), _oTokenAmount),
-            'GeneralTokenReserveSafeSaviour/could-not-transfer-collateralToken'
+            'OpynSafeSaviour/could-not-transfer-collateralToken'
         );
         // Update the collateralToken balance used to cover the SAFE and transfer collateralToken to this contract
         oTokenCover[safeHandler] = add(oTokenCover[safeHandler], _oTokenAmount);

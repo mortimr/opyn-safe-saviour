@@ -6,8 +6,8 @@ import '../interfaces/LiquidationEngineLike.sol';
 contract LiquidationEngineMock is LiquidationEngineLike {
     mapping(address => uint256) public _safeSaviours;
 
-    function setSafeSaviour(address safe, uint256 saviour) public {
-        _safeSaviours[safe] = saviour;
+    function toggleSafeSaviour(address saviour) public {
+        _safeSaviours[saviour] = (_safeSaviours[saviour] + 1) % 2;
     }
 
     function safeSaviours(address safe) public view override returns (uint256) {
