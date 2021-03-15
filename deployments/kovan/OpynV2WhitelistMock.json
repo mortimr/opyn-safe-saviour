@@ -1,0 +1,144 @@
+{
+  "address": "0x112dBABC0723e7F4aF81D70a220617b54b7767Ae",
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_otoken",
+          "type": "address"
+        }
+      ],
+      "name": "isWhitelistedOtoken",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_otoken",
+          "type": "address"
+        }
+      ],
+      "name": "toggleWhitelist",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "whitelist",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x7b37bccd37f69e9ddc7b9d4aee660f2f07518d200d25eaf7fdf3650f0750f45e",
+  "receipt": {
+    "to": null,
+    "from": "0xB4410cA4B6c25102A0De8863B83A0Bc6F94f7d24",
+    "contractAddress": "0x112dBABC0723e7F4aF81D70a220617b54b7767Ae",
+    "transactionIndex": 3,
+    "gasUsed": "182590",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x6726cfe929824562b2d7692b6d7db5cef6df5182456682236454dff54eff81d4",
+    "transactionHash": "0x7b37bccd37f69e9ddc7b9d4aee660f2f07518d200d25eaf7fdf3650f0750f45e",
+    "logs": [],
+    "blockNumber": 23931823,
+    "cumulativeGasUsed": "356320",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "solcInputHash": "4ab7740a3c4c741a16859aca93eee72c",
+  "metadata": "{\"compiler\":{\"version\":\"0.7.6+commit.7338295f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_otoken\",\"type\":\"address\"}],\"name\":\"isWhitelistedOtoken\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_otoken\",\"type\":\"address\"}],\"name\":\"toggleWhitelist\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"whitelist\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/test-utils/OpynV2WhitelistMock.sol\":\"OpynV2WhitelistMock\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/interfaces/OpynV2WhitelistLike.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.6.7 <=0.7.6;\\n\\nabstract contract OpynV2WhitelistLike {\\n    function isWhitelistedOtoken(address _otoken) external view virtual returns (bool);\\n}\\n\",\"keccak256\":\"0xf70a8e96892a3282e545eb56bd0e28249a271e846533325aa9e8424edec64fee\",\"license\":\"MIT\"},\"contracts/test-utils/OpynV2WhitelistMock.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.6.7 <=0.7.6;\\n\\nimport '../interfaces/OpynV2WhitelistLike.sol';\\n\\ncontract OpynV2WhitelistMock is OpynV2WhitelistLike {\\n    address public owner;\\n\\n    constructor() {\\n        owner = msg.sender;\\n    }\\n\\n    modifier ownerOnly() {\\n        require(msg.sender == owner, 'not owner');\\n        _;\\n    }\\n\\n    mapping(address => uint256) public whitelist;\\n\\n    function toggleWhitelist(address _otoken) external ownerOnly {\\n        whitelist[_otoken] = (whitelist[_otoken] + 1) % 2;\\n    }\\n\\n    function isWhitelistedOtoken(address _otoken) external view override returns (bool) {\\n        return whitelist[_otoken] == 1;\\n    }\\n}\\n\",\"keccak256\":\"0x6293a43d1c08744f2c781a8b546be1382d57612d12623b88a945d88f3f66a4fa\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b50600080546001600160a01b031916331790556101f5806100326000396000f3fe608060405234801561001057600080fd5b506004361061004c5760003560e01c806311946b981461005157806339393ac91461008b5780638da5cb5b146100b35780639b19251a146100d7575b600080fd5b6100776004803603602081101561006757600080fd5b50356001600160a01b031661010f565b604080519115158252519081900360200190f35b6100b1600480360360208110156100a157600080fd5b50356001600160a01b031661012e565b005b6100bb61019e565b604080516001600160a01b039092168252519081900360200190f35b6100fd600480360360208110156100ed57600080fd5b50356001600160a01b03166101ad565b60408051918252519081900360200190f35b6001600160a01b03166000908152600160208190526040909120541490565b6000546001600160a01b03163314610179576040805162461bcd60e51b81526020600482015260096024820152683737ba1037bbb732b960b91b604482015290519081900360640190fd5b6001600160a01b03166000908152600160208190526040909120805482019091169055565b6000546001600160a01b031681565b6001602052600090815260409020548156fea264697066735822122021fc4c55c50054adb9a249105abcb16930a885d2d2e599fd6b81acdfd28b8eac64736f6c63430007060033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b506004361061004c5760003560e01c806311946b981461005157806339393ac91461008b5780638da5cb5b146100b35780639b19251a146100d7575b600080fd5b6100776004803603602081101561006757600080fd5b50356001600160a01b031661010f565b604080519115158252519081900360200190f35b6100b1600480360360208110156100a157600080fd5b50356001600160a01b031661012e565b005b6100bb61019e565b604080516001600160a01b039092168252519081900360200190f35b6100fd600480360360208110156100ed57600080fd5b50356001600160a01b03166101ad565b60408051918252519081900360200190f35b6001600160a01b03166000908152600160208190526040909120541490565b6000546001600160a01b03163314610179576040805162461bcd60e51b81526020600482015260096024820152683737ba1037bbb732b960b91b604482015290519081900360640190fd5b6001600160a01b03166000908152600160208190526040909120805482019091169055565b6000546001600160a01b031681565b6001602052600090815260409020548156fea264697066735822122021fc4c55c50054adb9a249105abcb16930a885d2d2e599fd6b81acdfd28b8eac64736f6c63430007060033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 4304,
+        "contract": "contracts/test-utils/OpynV2WhitelistMock.sol:OpynV2WhitelistMock",
+        "label": "owner",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 4329,
+        "contract": "contracts/test-utils/OpynV2WhitelistMock.sol:OpynV2WhitelistMock",
+        "label": "whitelist",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_mapping(t_address,t_uint256)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_mapping(t_address,t_uint256)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => uint256)",
+        "numberOfBytes": "32",
+        "value": "t_uint256"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}
