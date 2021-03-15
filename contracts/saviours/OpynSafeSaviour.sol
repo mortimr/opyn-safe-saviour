@@ -274,8 +274,6 @@ contract OpynSafeSaviour is SafeMath, SafeSaviourLike {
 
         uint256 initialAmount = collateralToken.balanceOf(address(this));
 
-        // TODO a call to redeem and swap
-        // Move oToken whitelisting on operator
         opynSafeSaviourOperator.redeemAndSwapOTokens(
             oTokenSelection[_safeHandler],
             oTokenToApprove,
@@ -284,13 +282,10 @@ contract OpynSafeSaviour is SafeMath, SafeSaviourLike {
         );
 
         uint256 receivedCollateralAmount = sub(collateralToken.balanceOf(address(this)), initialAmount);
-
-        // // Track balance through redeem / swaps.
-        // uint256 track = _retrieveRequiredOTokenAmount(safeHandler, oTokenCollateralAddress, requiredTokenAmount);
-        // track = _redeemOTokenCollateral(safeHandler, oTokenCollateralAddress, track);
-        // track = _swapOTokenCollateralForSafeCollateral(oTokenCollateralAddress, track, requiredTokenAmount);
+        oTokenCover[_safeHandler] = sub(oTokenCover[_safeHandler], oTokenToApprove);
 
         // Check that balance has increased of at least required amount
+        // This should never get triggered but is the ultimate check to ensure that the Safe Saviour Operator did its job properly
         require(
             receivedCollateralAmount >= requiredTokenAmount,
             'OpynSafeSaviour/not-enough-otoken-collateral-swapped'
@@ -372,9 +367,27 @@ contract OpynSafeSaviour is SafeMath, SafeSaviourLike {
             return false;
         }
 
+        // Check that the fiat value of the keeper payout is high enough
+        if (keeperPayoutExceedsMinValue() == false) {
+            return false;
+        }
+
+        // check if safe too small to be saved
+        (uint256 safeLockedCollateral, ) =
+            SAFEEngineLike(collateralJoin.safeEngine()).safes(collateralJoin.collateralType(), _safeHandler);
+        if (safeLockedCollateral < mul(keeperPayout, payoutToSAFESize)) {
+            return false;
+        }
+
+        uint256 oTokenToApprove =
+            opynSafeSaviourOperator.getOTokenAmountToApprove(
+                oTokenSelection[_safeHandler],
+                add(tokenAmountUsed, keeperPayout),
+                address(collateralToken)
+            );
+
         // Check that owned oTokens are able to redeem enough collateral to save SAFE
-        return (opynSafeSaviourOperator.getOpynPayout(oTokenSelection[_safeHandler], oTokenCover[_safeHandler]) >=
-            add(tokenAmountUsed, keeperPayout));
+        return (oTokenToApprove <= oTokenCover[_safeHandler]);
     }
 
     /*
